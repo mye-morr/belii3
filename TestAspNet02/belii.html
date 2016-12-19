@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html manifest="manifest/TestAspNet02.appcache">
+<head>
+    <title>goedu</title>
+	<meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <script type="text/javascript" src="/js/main.js"></script>
+
+<script>
+    /***************
+        Initial
+    ****************/
+
+    function addToLocalStorage() {
+
+        checkButtonGroup('starter');
+        reOrderButtons('starter',
+            [
+                'button'
+            ]);
+
+        checkButtonGroup('badha');
+        reOrderButtons('badha',
+            [
+                'scared to start',
+                'lying across',
+                'time-failing',
+                'off-the-clock'
+            ]);
+
+        checkButtonGroup('gooha');
+        reOrderButtons('gooha',
+            [
+                'commit to task',
+                'timed task',
+                'quick to task',
+                'overcame a small problem',
+                'talk2self after 2x fail',
+                'water/physical instead of food',
+                'limit chore/break',
+                'pretend start over',
+                'greens insteadof sweets'
+            ]);
+
+        checkButtonGroup('motiva');
+        reOrderButtons('motiva',
+            [
+                'how bad could it be',
+                'man-up, be brave--build confidence',
+                'starting is hard; then it becomes fun',
+                'a shto tam delat',
+                'this is for ME',
+                'or no children',
+                'working hard feels great afterwards',
+                'lets try'
+            ]);
+
+        checkButtonGroup('fresis');
+        reOrderButtons('fresis',
+            [
+                'however it turns out',
+                'i can do this',
+                'whats past is past; what can i do now?',
+                'screw em by giving em what they want',
+                'do you want your goal or to feel ...?',
+                'can deal with this',
+                'step on someone',
+                'so it wont be perfect'
+            ]);
+
+        checkList('internet');
+        checkList('contact');
+        checkList('socme');
+        checkList('intIde');
+        checkList('smTas');
+        checkList('beeTas');
+        checkList('beePrj');
+        checkList('stra');
+        checkList('db2do');
+        checkList('shGr');
+
+        checkButtonGroup('morn');
+        reOrderButtons('morn',
+            [
+                'bed for bagel',
+                'or ruin whole',
+                'last chance bathroom',
+                'get started kitchen',
+                'one box to charge',
+                'oatmeal',
+                'planning or waste',
+                'shave while planning',
+                'pretty good & stick',
+                'one main timed',
+                'exercise anxiety',
+                'oatmeal to ready',
+                'out no matter what'
+            ]);
+
+        checkButtonGroup('sleep');
+        reOrderButtons('sleep',
+            [
+                'sleep no matter',
+                'or ruin whole',
+                'morning is better',
+                'write it down & leave',
+                'devices to drawer',
+                'make bed',
+                'set alarm',
+                'acceptance'
+            ]);
+
+        checkList('morn', 1);
+        var arrMorn = [
+            'Im up and () thank G-d!',
+            'I can choose one prep activity',
+            'and one main bundle of activities.',
+            'It should be challenging so that',
+            'I can be proud when I blast through it!',
+            '',
+            'During my timed breaks, I am',
+            'preparing to leave in the morning.',
+            '',
+            'I am aware of my fear of humiliation,',
+            'and secret desire to fail by wasting 4hrs.',
+            'I never allow this to happen because I',
+            'recognize the long-term effects this',
+            'has on my self-esteem and my relationships.',
+            '',
+            'I need confidence and Im going to get it.',
+            '[OR YOUR WHOLE DAY WILL BE RUINED]'
+        ];
+        setArray('lt_morn', arrMorn);        
+    }
+
+    window.onload = function () {
+        document.getElementById('do2div').innerHTML = writePage(1);
+        document.getElementById('in_list').innerHTML = propToComboBox();
+
+        //debugging
+        //document.getElementById('txtarea').value = document.getElementById('do2div').innerHTML;
+    }
+
+</script>
+
+</head>
+<body>
+
+    <label for="event">Event: </label>
+    <input type="text" style="font-size: 50px; width:50%;" name="event" id="in_event" /><br /><br /><br />
+    <label for="desc">Desc: </label>
+    <input type="text" style="font-size: 50px; width:50%;" name="desc" id="in_desc" /><br /><br />
+    <label for="notes">Notes: </label>
+    <input type="text" style="font-size: 50px; width:50%;" name="notes" id="in_notes" class="font25" />
+    <button style="font-size: 50px" onclick="addToSched( 
+        document.getElementById('in_event').value,
+        document.getElementById('in_desc').value,
+        document.getElementById('in_notes').value)">Add</button>
+    <div style="height:25px"></div>
+
+    <div id="do2div"></div>
+
+    <div class="buttonspacer"></div>
+    
+    <!--
+    <textarea id="txtarea" rows="4" cols="150"></textarea><br/><br />
+    -->
+
+    <label for="item">list: </label>
+
+    
+    <select name="item" id="in_list" style="font-size:75px;"></select>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button style="font-size:75px" onclick="delProperty(document.getElementById('in_list').options[getElementById('in_list').selectedIndex].text);">DELETE</button>
+    <br />
+    
+    <textarea id="modArray" style="font-size:13px;" rows="15" cols="120"></textarea>
+    <br />
+    <button style="font-size:75px; width:25%;" onclick="modArray_pull(document.getElementById('in_list').options[getElementById('in_list').selectedIndex].text);">pull</button>
+    <button style="font-size:75px; width:25%;" onclick="modArray_push(document.getElementById('in_list').options[getElementById('in_list').selectedIndex].text); location.reload();">push</button>
+    <div style="height:25px"></div>
+    <div class="buttonspacer"></div>
+    <button style="width:100%; height:50px" onclick="setLocalStorage(); addToLocalStorage(); location.reload();">Init Do2</button>
+    <button style="width:100%; height:50px" onclick="wipeSched(); location.reload();">Clear Schedule</button>
+    <button style="width:100%; height:50px" onclick="localStorage.clear(); location.reload();">Clear Storage</button>
+</body>
+</html>

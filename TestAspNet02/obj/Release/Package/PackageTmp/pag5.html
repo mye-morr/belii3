@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html manifest="manifest/TestAspNet02.appcache">
+
+<head>
+    <title>goedu5</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <script type="text/javascript" src="/js/main3.js"></script>
+
+    <script type="text/javascript" src="/js/MyLocal.js"></script>
+    <script type="text/javascript" src="/js/Names.js"></script>
+    <script type="text/javascript" src="/js/Item.js"></script>
+    <script type="text/javascript" src="/js/Flags.js"></script>
+    <script type="text/javascript" src="/js/Element.js"></script>
+    <script type="text/javascript" src="/js/Cleanup.js"></script>
+
+    <script type="text/javascript" src="/js/ButtonGroup.js"></script>
+    <script type="text/javascript" src="/js/ListGroup.js"></script>
+    <script type="text/javascript" src="/js/Report.js"></script>
+    <script type="text/javascript" src="/js/Schedule.js"></script>
+
+    <script type="text/javascript" src="/js/MyPage.js"></script>
+
+    <script type="text/javascript" src="/js/miscTools3.js"></script>
+
+    <script>
+
+        window.onload = function () {
+            var numPage = 5;
+
+            // used by statics init, commitChanges, and delProperty
+            _nameLocal = 'mystorage3';
+
+            var objStorage = new MyLocal(_nameLocal).objStorage;
+            var objMyPage = new MyPage(objStorage);
+
+            document.getElementById('contents').innerHTML = contentsToStr(numPage, objStorage);
+
+            document.getElementById('do2div').innerHTML
+                = objMyPage.writePage(numPage, _nameLocal);
+
+            document.getElementById('in_list').innerHTML =
+                MyPage.propToComboBox(objStorage);
+            document.getElementById('in_list').value =
+                'A_Page' + numPage;
+
+            document.getElementById('modPage').innerHTML
+                = objMyPage.writePageArray(numPage, _nameLocal);
+
+        };
+    </script>
+
+</head>
+<body>
+    <div class="contents" id="contents"></div>
+    <div class="spacer25"></div>
+    <div id="do2div"></div>
+
+    <section class="addElement">
+        <label for="item">list:&nbsp;</label>
+        <div class="addElement">
+            <select name="item" id="in_list" style="font-size:50px;"></select>
+        </div>
+        <div class="addElement">
+            <button style="font-size:50px" onclick="Cleanup.delProperty(_nameLocal, document.getElementById('in_list').options[getElementById('in_list').selectedIndex].text); location.reload();">DELETE</button>
+        </div>
+    </section>
+
+    <br />
+
+    <div>
+        <textarea id="modArray" class="modArray" rows="15"></textarea>
+    </div>
+    <br />
+    <button style="font-size:40px; width:25%;" onclick="modArray_pull(document.getElementById('in_list').options[getElementById('in_list').selectedIndex].value, _nameLocal);">pull</button>
+    <button style="font-size:40px; width:25%;" onclick="modArray_push(document.getElementById('in_list').options[getElementById('in_list').selectedIndex].value, _nameLocal); location.reload();">push</button>
+    <div class="spacer25"></div>
+
+    <div class="spacer200"></div>
+    <div id="modPage"></div>
+</body>
+</html>

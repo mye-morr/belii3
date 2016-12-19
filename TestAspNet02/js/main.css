@@ -1,0 +1,162 @@
+body {
+    font-size: 20px;
+}
+
+details {
+    /* prevents Font Boosting in mobile browser! */
+    max-height: 999999px;
+}
+
+table {
+    width:100%;
+}
+
+div.contents {
+    font-size:35px;
+}
+
+div.modArray {
+    padding-left:25px;
+    font-size:35px;
+}
+
+textarea.modArray {
+    width:100%;
+}
+
+button.modArray {
+    font-size:35px;
+}
+
+section.addElement {
+    width: 100%;
+    display: table;
+}
+
+div.addElement {
+    display: table-cell;
+}
+
+input.addElement {
+    width: 100%;
+    font-size: 50px;
+}
+
+button.addElement {
+    white-space: nowrap;
+    font-size: 50px;
+}
+
+div.sePtsContainer {
+    display: table;
+}
+
+div.sePtsRow {
+    display: table-row;
+}
+
+div.sePts {
+    width: 40px;
+    display: table-cell;
+    text-align: left;
+}
+
+input.sePts {
+    width: 70%;
+    font-size: 25px;
+    text-align:left;
+}
+
+button.sePts {
+    font-size: 45px;
+}
+
+textarea.editCode {
+    width:100%;
+    visibility:collapse;
+}
+
+section.editCode {
+    width: 100%;
+    display: table;
+}
+
+div.editCode {
+    display: table-cell;
+    width: 33%;
+}
+
+button.editCode {
+    display:table;
+    margin:0 auto;
+    font-size: 40px;
+}
+
+table.schedule {
+	border-collapse:collapse;
+	font-size:25px;
+}
+
+tr.schedule {
+	border-bottom: 1px solid black;
+}
+
+td.schedule {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+table.lines {
+	border-collapse:collapse;
+	font-size:25px;
+}
+
+tr.lines {
+	border-bottom: 1px solid black;
+}
+
+td.lines {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+tr.list {
+    height:100px;
+}
+
+td.width20 {
+    width:20%;    
+}
+
+td.width60 {
+    width:60%;    
+}
+
+td.width90 {
+    width:90%;    
+}
+
+td.listButtons {
+    width:10%;
+}
+
+button.st {
+	width:100%;
+	height:300px;
+	font-size: 100px;
+}
+
+div.spacer25 {
+    height:25px;
+}
+
+div.spacer200 {
+    height:200px;
+}
+
+button.emergency {
+    display: table;
+    margin: 0 auto;
+    width:95%;
+    height:50px;
+}

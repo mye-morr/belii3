@@ -1,0 +1,39 @@
+﻿CACHE MANIFEST
+# Items to cache
+../belii3.html
+../page2.html
+../pag3.html
+../page4.html
+../pag5.html
+../pag6.html
+../page7.html
+../pag8.html
+../js/main3.js
+../js/MyLocal.js
+../js/Names.js
+../js/Item.js
+../js/Flags.js
+../js/Element.js
+../js/Cleanup.js
+../js/ButtonGroup.js
+../js/ListGroup.js
+../js/Report.js
+../js/Schedule.js
+../js/MyPage.js
+../js/miscTools3.js
+../css/main.css
+../img/arrow_up.gif
+../img/arrow_down.gif
+../img/arrow_right.gif
+../img/arrow_right_red.gif
+# ../img/background.jpg
+
+
+# Use from network if available
+NETWORK:
+*
+
+# Fallback content
+FALLBACK:
+../ ../html/fallback.html
+# ../img/ ../img/fallback.gif

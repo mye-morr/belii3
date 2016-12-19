@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+
+    <script>
+
+        regex = /(?:\()(\+|-?)(\d+)(?:\|?)(\+|-?)(\d*)(?:\))/;
+        var str = "abc(0|-5))";
+        var arrMatches = str.match(regex);
+        if (arrMatches) {
+            document.writeln(arrMatches);
+            document.writeln(parseInt(arrMatches[1] + arrMatches[2]));
+        }
+
+        var str2 = "abc_def_ghi";
+        var buf = str2.indexOf("_");
+        document.writeln(str2.substring(0, buf));
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

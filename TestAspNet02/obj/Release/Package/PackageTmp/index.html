@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html>
+      <!-- manifest="manifest/TestAspNet02.appcache"> --> 
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+
+    <script>
+
+        var habits = {};
+
+        habits['bad'] = [
+            'baha'
+
+            //'lying-across'
+            //, 'time-failing'
+            //, 'off the clock'
+
+        ];
+
+        habits['good'] = [
+            'gooha'
+            //'timed goal'
+            //, 'quick to task'
+            //, 'talk2self after 2x fail'
+            //, 'water/physical instead of food'
+            //, 'limit chore/break'
+            //, 'pretend start over'
+        ];
+
+        var things2say = {};
+        things2say['re(start)'] = [
+            'thi2resta'
+            //'how bad could it be'
+            //, 'starting is hard; then it becomes fun'
+            //, 'a shto tam delat'
+            //, 'this is for ME'
+            //, 'working hard feels great afterwards'
+            //, 'lets try'
+        ];
+
+        things2say['resistance'] = [
+            'thi2resi'
+
+            //'whats past is past; what can i do now?'
+            //, 'screw em by giving em what they want'
+            //, 'have to finish this so, however it turns out'
+            //, 'do you want your goal or to feel ...?'
+            //, 'can deal with this'
+            //, 'step on someone'
+            //, 'so it wont be perfect'
+        ];
+        
+        function add2sched() {
+
+            var two = localStorage.getObject('do2things');
+
+            var d = new Date();
+            var sTime = padHrMin(d.getHours()) + ':' + padHrMin(d.getMinutes());
+
+            two.schedule.push({
+                time: sTime,
+                type: document.getElementById('in_type').value,
+                desc: document.getElementById('in_desc').value,
+                notes: document.getElementById('in_notes').value
+            });
+
+            localStorage.setObject('do2things', two);
+        }
+
+        function padHrMin(iDigit) {
+            if (iDigit < 10)
+                return "0" + iDigit;
+            else
+                return iDigit;
+        }
+
+        function addContact() {
+            var two = localStorage.getObject('do2things');
+            two.contacts.push(document.getElementById('in_contact').value);
+            localStorage.setObject('do2things', two);
+
+        }
+
+        function addInternet() {
+            var two = localStorage.getObject('do2things');
+            two.internet.push(document.getElementById('in_internet').value);
+            localStorage.setObject('do2things', two);
+        }
+
+        function do2() {
+        }
+
+        function setLocalStorage() {
+            var two = new do2();
+
+            // array, holds names of items
+            var arr = [];
+
+            // object, indexed by item
+            // also keeps count of all items
+            var bigarr = {};
+
+            bigUpArrays(arr, bigarr, habits['bad']);
+            arr.push('---');
+            bigUpArrays(arr, bigarr, habits['good']);
+            arr.push('---');
+            bigUpArrays(arr, bigarr, things2say['re(start)']);
+            arr.push('---');
+            bigUpArrays(arr, bigarr, things2say['resistance']);
+
+            two.arr = arr;
+            two.bigarr = bigarr;
+
+            two.schedule = [];
+            two.contacts = [];
+            two.internet = [];
+
+            localStorage.setObject('do2things', two);
+        }
+
+        function bigUpArrays(arr, bigarr, arrTarget) {
+            for (var i = 0; i < arrTarget.length; i++) {
+                var key = arrTarget[i];
+                arr.push(key);
+
+                bigarr[key] = {
+                    count: 0
+                };
+            }
+        }
+
+        function displayLocalStorage() {
+            var two = localStorage.getObject('do2things');
+
+            var html = '<details><summary>(Local Storage)</summary>';
+            for (var i = 0; i < two.arr.length; i++) {
+                if (two.arr[i] == '---')
+                    html += '<hr/>';
+                else
+                    html += two.arr[i] + ': ' + two.bigarr[two.arr[i]].count + '<br/>';
+            }
+
+            html += '<hr/><div style="height:25px"></div>';
+
+            html += '<table class="schedule">'
+                    + '<tr><th></th><th></th><th></th><th></th></tr>'
+            for (var i = 0; i < two.schedule.length; i++) {
+                html += '<tr class="schedule">'
+                        + '<td class="schedule">'
+                            + two.schedule[i].time + '</td>'
+                        + '<td class="schedule">'
+                            + two.schedule[i].type + '</td>'
+                        + '<td class="schedule">'
+                            + two.schedule[i].desc + '</td>'
+                        + '<td class="schedule">'
+                            + two.schedule[i].notes + '</td></tr>';
+
+                // class="schedule"
+            }
+
+            html += '</table></details><div style="height:25px"></div>';
+
+            for (var i = 0; i < two.arr.length; i++) {
+                if (two.arr[i] == '---')
+                    html += '<div class="buttonspacer"></div>'
+                else
+                    html +=
+                        '<button class="st" '
+                        + 'onclick="do_plus(&quot;'
+                        + two.arr[i]
+                        + '&quot;); location.reload();">'
+                        + two.arr[i]
+                        + '</button>';
+            }
+
+            html += '<div style="height:100px"></div>';
+            html += '<details><summary>(Contacts / Internet)</summary>'
+            for (var i = 0; i < two.contacts.length; i++) {
+                html += two.contacts[i] + '<br/>';
+            }
+            html += '<hr/>'
+            for (var i = 0; i < two.internet.length; i++) {
+                html += two.internet[i] + '<br/>';
+            }
+            html += "</details>"
+
+            document.getElementById('do2div').innerHTML = html;
+        }
+
+        function do_plus(sIdx) {
+            var two = localStorage.getObject('do2things');
+            two.bigarr[sIdx].count++;
+            localStorage.setObject('do2things', two);
+        }
+
+        Storage.prototype.setObject = function (key, value) {
+            this.setItem(key, JSON.stringify(value));
+        }
+
+        Storage.prototype.getObject = function (key) {
+            return this.getItem(key) && JSON.parse(this.getItem(key));
+        }
+
+        window.onload = function () {
+            displayLocalStorage();
+        }
+
+    </script>
+</head>
+<body>
+    <h2> yo yo </h2>
+    <label for="type">Event: </label>
+    <input type="text" name="type" id="in_type"/><br/><br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <label for="desc">Desc: </label>
+    <input type="text" name="desc" id="in_desc"/><br/><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <label for="notes">Notes: </label>
+    <input type="text" name="notes" id="in_notes" class="font25"/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button style="font-size: 50px" onclick="add2sched();location.reload()">Add</button>
+    <div style="height:25px"></div>
+
+    <div id="do2div"></div>
+
+    <div style="height:100px"></div>
+    <label for="contact">Contact: </label>
+    <input type="text" name="contact" id="in_contact" class="font25">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button style="font-size: 50px" onclick="addContact();location.reload()">Add</button>
+    <div style="height:100px"></div>
+    <label for="internet">Internet: </label>
+    <input type="text" name="internet" id="in_internet" class="font25">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button style="font-size: 50px" onclick="addInternet();location.reload()">Add</button>
+    <br /><br /><br />
+    <div style="height:100px"></div>
+    <button style="width:100%; height:50px" onclick="setLocalStorage(); location.reload();">Init Do2</button>
+    <button style="width:100%; height:50px" onclick="localStorage.clear(); location.reload();">Clear Storage</button>
+
+</body>
+</html>

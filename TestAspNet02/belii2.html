@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html manifest="manifest/TestAspNet02.appcache">
+<head>
+    <title>goedu</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <script type="text/javascript" src="/js/main2.js"></script>
+
+    <script>
+
+        window.onload = function () {
+        var num = 1;
+        document.getElementById('contents').innerHTML = contentsToStr(num);
+        document.getElementById('do2div').innerHTML = writePage(num);
+        document.getElementById('in_list').innerHTML = propToComboBox();
+        document.getElementById('in_list').value = 'arrElements' + num;
+    }
+
+    </script>
+
+</head>
+<body>
+        <div class="contents" id="contents"></div>
+        <div class="spacer25"></div>
+        <section class="addElement">
+            <label for="input_sched">Event:</label>
+            <div class="addElement">
+                <input type="text" class="addElement" name="input_sched" id="input_sched" />
+            </div>
+            <div class="addElement">
+                <button style="font-size: 50px"
+                        onclick="addToSched('sched',
+                                    document.getElementById('input_sched').value,
+                                    document.getElementById('sched_plusPts').value,
+                                    document.getElementById('sched_minusPts').value); location.reload();">Add</button>
+            </div>
+            <div class="sxPtsContainer">
+                <div class="sxPtsRow">
+                    <div class="sxPts"></div>
+                    <div class="sxPts"><input disabled type="text" class="sxPts" id="sched_plusPts" value="0" /></div>
+                    <div class="sxPts"><button class="sxPts" onclick="document.getElementById('sched_plusPts').value=parseInt(document.getElementById('sched_plusPts').value) + 1;">+</button></div>
+                    <div class="sxPts"></div>
+                    <div class="sxPts"></div>
+                </div>
+                <div class="sxPtsRow">
+                    <div class="sxPts"></div>
+                    <div class="sxPts"></div>
+                    <div class="sxPts"></div>
+                    <div class="sxPts"><input disabled type="text" class="sxPts" id="sched_minusPts" value="0"/></div>
+                    <div class="sxPts"><button class="sxPts" style="font:50px;" onclick="document.getElementById('sched_minusPts').value=parseInt(document.getElementById('sched_minusPts').value) - 1;">-</button></div>
+                    <div class="sxPts"></div>
+                </div>
+            </div>
+        </section>
+        <div style="height:25px"></div>
+
+        <div id="do2div"></div>
+
+        <section class="addElement">
+            <label for="item">list:&nbsp;</label>
+            <div class="addElement">
+                <select name="item" id="in_list" style="font-size:50px;"></select>
+            </div>
+            <div class="addElement">
+                <button style="font-size:50px" onclick="delProperty(document.getElementById('in_list').options[getElementById('in_list').selectedIndex].text); location.reload();">DELETE</button>
+            </div>
+        </section>
+
+        <br />
+
+        <div>
+            <textarea id="modArray" class="modArray" rows="15"></textarea>
+        </div>
+        <br />
+        <button style="font-size:40px; width:25%;" onclick="modArray_pull(document.getElementById('in_list').options[getElementById('in_list').selectedIndex].text);">pull</button>
+        <button style="font-size:40px; width:25%;" onclick="modArray_push(document.getElementById('in_list').options[getElementById('in_list').selectedIndex].text); location.reload();">push</button>
+        <div style="height:25px"></div>
+        <div class="spacer200"></div>
+        <div>
+            <textarea id="taResult" rows="7" class="editCode"></textarea><br /><br />
+            <div class="spacer200"></div>
+            <textarea id="taJSCode" rows="4" class="editCode">
+                document.getElementById('taResult').value = document.getElementById('do2div').innerHTML;
+            </textarea><br /><br />
+        </div>
+        <section class="editCode">
+            <div class="editCode">
+                <button class="editCode" onclick="document.getElementById('taResult').style.visibility = 'visible';
+                                            document.getElementById('taJSCode').style.visibility = 'visible';">
+                    Show
+                </button><br /><br />
+                <button class="editCode" onclick="document.getElementById('taResult').style.visibility = 'collapse';
+                                            document.getElementById('taJSCode').style.visibility = 'collapse';">
+                    Hide
+                </button>
+            </div>
+            <div class="editCode">
+                <br /><button class="editCode" onclick="eval(document.getElementById('taJSCode').value);">Run</button>
+            </div>
+            <div class="editCode">
+                <button class="editCode" onclick="document.getElementById('taResult').value = stringifyMyStorage();">GetLocal</button><br /><br />
+                <button class="editCode" onclick="parseMyStorage(document.getElementById('taResult').value); location.reload();">SetLocal</button>
+            </div>
+        </section>
+        <br />
+        <div class="spacer200"></div>
+
+        <button class="emergency" onclick="setLocalStorage(); addToLocalStorage(); location.reload();">Init Do2</button>
+
+    <!--
+        <button class="emergency" onclick="cleanupMyStorage(); location.reload();">Init Do2</button>
+    -->
+
+        <button class="emergency" onclick="wipeSched(); location.reload();">Clear Schedule</button>
+        <button class="emergency" onclick="localStorage.clear(); location.reload();">Clear Storage</button>
+
+        
+</body>
+</html>
